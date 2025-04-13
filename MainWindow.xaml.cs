@@ -79,3 +79,25 @@ namespace FlightSimulator
         }
     }
 }
+
+using FlightSimulator.Data;
+using FlightSimulator.Models;
+
+private void SaveFlight_Click(object sender, RoutedEventArgs e)
+{
+    var flight = new Flight
+    {
+        FlightNumber = FlightNumberInput.Text,
+        Altitude = int.Parse(AltitudeInput.Text),
+        Speed = int.Parse(SpeedInput.Text),
+        Status = ((ComboBoxItem)StatusCombo.SelectedItem)?.Content?.ToString()
+    };
+
+    using (var db = new AppDbContext())
+    {
+        db.Flights.Add(flight);
+        db.SaveChanges();
+    }
+
+    InfoTextBlock.Text = $"Saved flight: {flight.FlightNumber}, Alt: {flight.Altitude} ft, Speed: {flight.Speed} knots";
+}
