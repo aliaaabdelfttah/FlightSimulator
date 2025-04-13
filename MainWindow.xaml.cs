@@ -113,3 +113,68 @@ private void LoadFlights_Click(object sender, RoutedEventArgs e)
         }
     }
 }
+
+
+private double angle = 0;
+
+private void SimulationTimer_Tick(object sender, EventArgs e)
+{
+    angle += 0.05;
+    flightX = 200 + Math.Cos(angle) * 100;
+    flightY = 200 + Math.Sin(angle) * 100;
+    UpdateFlightPosition();
+}
+
+Line vertical = new Line
+{
+    X1 = centerX,
+    Y1 = centerY - maxRadius,
+    X2 = centerX,
+    Y2 = centerY + maxRadius,
+    Stroke = Brushes.DarkGreen,
+    StrokeThickness = 1
+};
+RadarCanvas.Children.Add(vertical);
+
+Line horizontal = new Line
+{
+    X1 = centerX - maxRadius,
+    Y1 = centerY,
+    X2 = centerX + maxRadius,
+    Y2 = centerY,
+    Stroke = Brushes.DarkGreen,
+    StrokeThickness = 1
+};
+RadarCanvas.Children.Add(horizontal);
+
+private void ExportToExcel()
+{
+    using (var db = new AppDbContext())
+    {
+        var flights = db.Flights.ToList();
+
+        var wb = new ClosedXML.Excel.XLWorkbook();
+        var ws = wb.Worksheets.Add("Flights");
+
+        ws.Cell(1, 1).Value = "Flight Number";
+        ws.Cell(1, 2).Value = "Altitude";
+        ws.Cell(1, 3).Value = "Speed";
+        ws.Cell(1, 4).Value = "Status";
+
+        for (int i = 0; i < flights.Count; i++)
+        {
+            ws.Cell(i + 2, 1).Value = flights[i].FlightNumber;
+            ws.Cell(i + 2, 2).Value = flights[i].Altitude;
+            ws.Cell(i + 2, 3).Value = flights[i].Speed;
+            ws.Cell(i + 2, 4).Value = flights[i].Status;
+        }
+
+        wb.SaveAs("FlightsReport.xlsx");
+        MessageBox.Show("Exported to Excel successfully!");
+    }
+}
+
+private void ExportToExcel_Click(object sender, RoutedEventArgs e)
+{
+    ExportToExcel();
+}
