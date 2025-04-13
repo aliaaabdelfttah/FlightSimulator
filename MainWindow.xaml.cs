@@ -101,3 +101,15 @@ private void SaveFlight_Click(object sender, RoutedEventArgs e)
 
     InfoTextBlock.Text = $"Saved flight: {flight.FlightNumber}, Alt: {flight.Altitude} ft, Speed: {flight.Speed} knots";
 }
+private void LoadFlights_Click(object sender, RoutedEventArgs e)
+{
+    FlightsList.Items.Clear();
+    using (var db = new AppDbContext())
+    {
+        var flights = db.Flights.ToList();
+        foreach (var flight in flights)
+        {
+            FlightsList.Items.Add($"[{flight.Id}] {flight.FlightNumber} - {flight.Status} - {flight.Altitude}ft @ {flight.Speed}knots");
+        }
+    }
+}
