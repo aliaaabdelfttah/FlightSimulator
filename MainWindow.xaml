@@ -9,4 +9,6 @@
         <Button Content="Start Simulation" VerticalAlignment="Bottom"
                 HorizontalAlignment="Center" Margin="10" Click="StartSimulation_Click"/>
     </Grid>
+<ListBox Name="FlightsList" Margin="10" Height="200" />
+<Button Content="Load Saved Flights" Click="LoadFlights_Click" Margin="10" />
 </Window>
