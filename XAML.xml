@@ -1,0 +1,11 @@
+<StackPanel Orientation="Vertical" HorizontalAlignment="Right" Margin="10" Width="200">
+    <TextBox Name="FlightNumberInput" PlaceholderText="Flight Number" Margin="5"/>
+    <TextBox Name="AltitudeInput" PlaceholderText="Altitude (feet)" Margin="5"/>
+    <TextBox Name="SpeedInput" PlaceholderText="Speed (knots)" Margin="5"/>
+    <ComboBox Name="StatusCombo" Margin="5">
+        <ComboBoxItem Content="Airborne"/>
+        <ComboBoxItem Content="Landing"/>
+        <ComboBoxItem Content="Emergency"/>
+    </ComboBox>
+    <Button Content="Save Flight" Click="SaveFlight_Click" Margin="5"/>
+</StackPanel>
