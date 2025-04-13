@@ -8,4 +8,7 @@
         <ComboBoxItem Content="Emergency"/>
     </ComboBox>
     <Button Content="Save Flight" Click="SaveFlight_Click" Margin="5"/>
+    <Button Content="Export to Excel" Click="ExportToExcel_Click" Margin="10" />
+
+
 </StackPanel>
